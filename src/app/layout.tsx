@@ -1,4 +1,5 @@
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
+import LayoutProvider from '@/components/LayoutProvider';
 
 
 export const metadata: Metadata = {
@@ -12,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+      <LayoutProvider>
+        {children}
+      </LayoutProvider>
   )
 }
