@@ -1,22 +1,30 @@
 'use client'
+import React, { createContext, useContext } from 'react'
 import { ConfigProvider } from "antd";
-import React from 'react'
 
-function LayoutProvider({ children }: any) {
+const AntdThemeContext = createContext({});
+
+export const useAntdTheme = () => {
+    return useContext(AntdThemeContext)
+}
+
+function LayoutProvider({ children, value }: any) {
     return (
-        <html lang="en">
-            <body>
-                <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: '#000',
-                        },
-                    }}
-                >
-                    {children}
-                </ConfigProvider>
-            </body>
-        </html>
+        <AntdThemeContext.Provider value={value}>
+            <html lang="en">
+                <body>
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorPrimary: '#000',
+                            },
+                        }}
+                    >
+                        {children}
+                    </ConfigProvider>
+                </body>
+            </html>
+        </AntdThemeContext.Provider>
     )
 }
 
