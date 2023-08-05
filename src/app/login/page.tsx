@@ -22,7 +22,7 @@ function Login() {
           <div className="divider"></div>
 
           <div className="flex flex-col gap-5">
-
+ 
             <Form.Item
               label="Email"
               name="email"
