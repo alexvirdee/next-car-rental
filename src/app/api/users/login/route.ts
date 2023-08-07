@@ -7,6 +7,9 @@ import jwt from 'jsonwebtoken';
 connectDB();
 
 export async function POST(request: { json: () => any; }) {
+
+    const tokenEnv = process.env.jwt_secret as string; 
+    
     try {
         const reqBody = await request.json();
 
@@ -21,7 +24,7 @@ export async function POST(request: { json: () => any; }) {
         const validPassword = await bcrypt.compare(reqBody.password, user.password);
 
         if (!validPassword) {
-            throw new Error("INvalid password");
+            throw new Error("Invalid password");
         }
 
         const response = NextResponse.json({
@@ -29,7 +32,7 @@ export async function POST(request: { json: () => any; }) {
         });
 
         // create token
-        const token = jwt.sign({ _id: user.id }, process.env.jwt_secret, {
+        const token = jwt.sign({ _id: user._id },  tokenEnv, {
             expiresIn: "1d"
         })
 
@@ -38,6 +41,8 @@ export async function POST(request: { json: () => any; }) {
             path: '/',
             httpOnly: true
         });
+
+        return response;
 
     } catch (error: any) {
         return NextResponse.json({ message: error.message }, { status: 400 })
