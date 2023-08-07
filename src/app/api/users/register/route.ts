@@ -3,6 +3,8 @@ import User from "@/models/userModel";
 import { connectDB } from "@/config/dbConfig";
 import bcrypt from 'bcryptjs';
 
+connectDB();
+
 export async function POST(request: { json: () => any; }) {
     try {
         const reqBody = await request.json();
